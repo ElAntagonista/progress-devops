@@ -20,8 +20,8 @@ This is a gist with useful bash concept and commands:
 
 I suggest you try it out and tinker with them.
 
-
-
+## Slides from the lecture
+[Slides](http://tiny.cc/q15ujz)
 
 
 
