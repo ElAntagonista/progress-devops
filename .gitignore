@@ -1,4 +1,11 @@
 .vagrant
 **/.vagrant
 **.DS_Store**
-.log*
+**.log**
+**.terraform**
+**.tfstate**
+
+
+.gitsecret/keys/random_seed
+!*.secret
+Lectures/Ansible-Terraform/terraform/variables.tf

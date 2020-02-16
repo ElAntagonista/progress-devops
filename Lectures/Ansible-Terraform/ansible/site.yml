@@ -1,0 +1,6 @@
+---
+- name: Setup Nginx on remote machine
+  hosts: all
+  become: true
+  roles:
+    - nginx-setup

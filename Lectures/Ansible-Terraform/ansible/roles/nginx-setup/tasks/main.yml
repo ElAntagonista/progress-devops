@@ -1,0 +1,13 @@
+---
+# tasks file for nginx-setup
+- name: Install nginx using apt
+  apt:
+    name: nginx # not required. A list of package names, like C(foo), or package specifier with version, like C(foo=1.0). Name wildcards (fnmatch) like C(apt*) and version wildcards like C(foo=1.0*) are also supported.
+    state: present # not required. choices: absent;build-dep;latest;present. Indicates the desired package state. C(latest) ensures that the latest version is installed. C(build-dep) ensures the package build dependencies are installed.
+
+- name: Generate index.html template
+  template:
+    dest: /var/www/html/index.html # required. Location to render the template to on the remote machine.
+    src: index.j2 # required. Path of a Jinja2 formatted template on the Ansible controller. This can be a relative or absolute path.
+    force: yes # not required. the default is C(yes), which will replace the remote file when contents are different than the source.  If C(no), the file will only be transferred if the destination does not exist.
+  notify: Restart nginx
