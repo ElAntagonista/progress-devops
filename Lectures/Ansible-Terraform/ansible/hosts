@@ -1,3 +1,4 @@
+//Example of an inventory file
 node2  ansible_host=172.28.128.15
 [webservers]
 node2

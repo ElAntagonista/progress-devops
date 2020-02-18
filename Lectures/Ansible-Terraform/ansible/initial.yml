@@ -1,3 +1,8 @@
+# Example of a playbook without using roles
+# All tasks needed are included directly in the playbook
+### Usecase:
+# When you have very simple requirements and there's no point of making a role as the code won't be
+#  reused anywhere else
 ---
 - hosts: all
   vars:

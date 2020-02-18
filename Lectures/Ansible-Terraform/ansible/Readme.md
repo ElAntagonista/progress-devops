@@ -1,5 +1,4 @@
 # Initial setup
-
 sudo useradd -m -s /bin/bash devops
 sudo passwd devops
 sudo su
@@ -8,14 +7,13 @@ sudo su - devops
 ssh-keygen -t rsa
 export ANSIBLE_HOST_KEY_CHECKING=False
 
-# test if we have configured everything properly
+# Test if we have configured everything properly
 ssh 172.28.128.15 -o PubkeyAuthentication=no
 
+# Adhoc commands example
+ansible node2 -i hosts -m shell -a 'echo $TERM'
 
-# Adhoc commands
-ansible node2 -i hosts -m shell -a 'echo $TERM' -u dev
-
-# Playbooks
+# Playbook example
 ansible-playbook -i hosts site.yml -l webservers
 
 ## Creating new role - (easiest way)
