@@ -9,3 +9,4 @@
 .gitsecret/keys/random_seed
 !*.secret
 Lectures/Ansible-Terraform/terraform/variables.tf
+Lectures/AWS/cm/iam/users/terraform.tfvars
