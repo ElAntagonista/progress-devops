@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ This will be a quick demo of using python
     Search for domain names
-    This program will have the following task:
+    This program will perform the following:
      1) Fetch domain data from a public api 
      2) Write matched domains to a file
 """

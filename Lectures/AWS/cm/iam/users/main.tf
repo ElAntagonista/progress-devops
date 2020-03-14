@@ -51,54 +51,18 @@ resource "aws_iam_group_membership" "team" {
 }
 
 
+data "template_file" "this" {
+  template = file("policy.json.tpl")
+
+  vars = {
+    account_id = var.account_id
+  }
+}
+
 resource "aws_iam_group_policy" "this" {
   name  = "prog-users"
   group = aws_iam_group.this.id
 
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeInstances",
-                "ec2:DescribeImages",
-                "ec2:DescribeKeyPairs",
-                "ec2:CreateKeyPair",
-                "ec2:DescribeVpcs",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeSecurityGroups",
-                "ec2:CreateSecurityGroup",
-                "ec2:AuthorizeSecurityGroupIngress"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "ec2:RunInstances",
-            "Resource": [
-                "arn:aws:ec2:us-east-1:706365375873:network-interface/*",
-                "arn:aws:ec2:us-east-1:706365375873:volume/*",
-                "arn:aws:ec2:us-east-1:706365375873:key-pair/*",
-                "arn:aws:ec2:us-east-1:706365375873:security-group/*",
-                "arn:aws:ec2:us-east-1:706365375873:subnet/subnet-1a2b3c4d"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": "ec2:RunInstances",
-            "Resource": [
-                "arn:aws:ec2:us-east-1:706365375873:instance/*"
-            ],
-            "Condition": {
-                "StringEquals": {
-                    "ec2:InstanceType": "t2.micro"
-                }
-            }
-        }
-    ]
-}
-EOF
+  policy = data.template_file.this.rendered
 }
 

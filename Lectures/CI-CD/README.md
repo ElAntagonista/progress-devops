@@ -17,5 +17,6 @@ In this lecture we focus on CI/CD toolset - CodePipeline and Jenkins in particul
     4.2 A **CD** part. The deployment should be Blue/Green.
 5. The app should run in an ECS cluster. 
 
-
+# Usage of Jenkins pipelines and CodePipeline
+## [Example](https://github.com/ElAntagonista/green-blue-ecs-example)
 

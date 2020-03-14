@@ -2,5 +2,5 @@ FROM python:alpine3.7
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
-EXPOSE 5000
+EXPOSE 80
 ENTRYPOINT ["python", "./index.py"]

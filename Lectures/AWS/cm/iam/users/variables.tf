@@ -46,3 +46,6 @@ variable "tags" {
     environment = "prog"
   }
 }
+
+variable "account_id" {
+}
