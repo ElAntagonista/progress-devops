@@ -1,14 +1,20 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 
 #Nice to have
 set -o errexit # Exit the script on error
 set -o pipefail # Do not allow failure on piping 
 
 
+trap "echo Bye" SIGTERM
+
+function say_bye(){
+  echo "Bye"
+}
+
 function _variable_declaration(){
     var1="some_value"
 
-    declare var2=3
+    declare -r var2=3
 
     # Array
     arr=(1 2 3 4 5)
@@ -54,11 +60,6 @@ function _parameter_expansion(){
 }
 
 
-#function _command_expansion(){
-  
-#}
-
-
 function _pipefail(){
   a=$(exit 1 | true && echo "hi")
   echo $a
@@ -75,16 +76,16 @@ function _say_bye(){
   printf "%s\n" "Good" "Bye" "From" "Me"
 }
 
-
 # Incrementing a number
 function _incrementer(){
-i=0
+i=$1
 while [ true ]; do
   ((i++))
-  sleep 5
   printf "%d\n" $i
+  sleep 5
 done
 }
+_incrementer 2	
 
 # Read from file
 function _read_file(){
@@ -128,10 +129,8 @@ function _subshelling(){
   wait
 }
 
-#trap say_bye KILL
 
 # sourcing
- 
 function _helpful_vars(){
   # Set magic variables for current file & dir
   __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

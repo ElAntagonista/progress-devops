@@ -11,6 +11,6 @@ with open("sample.txt", 'w+') as file_:
 
 
 # Read from a file
-with open("sample.txt", 'r') as filer_:
-    for line in filer_.readlines():
+with open("sample.txt", 'r') as file_:
+    for line in file_.readlines():
         print(line)
