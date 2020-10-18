@@ -1,11 +1,8 @@
 #!/usr/bin/env bash 
-
 #Nice to have
 set -o errexit # Exit the script on error
 set -o pipefail # Do not allow failure on piping 
 
-
-trap "echo Bye" SIGTERM
 
 function say_bye(){
   echo "Bye"
@@ -85,7 +82,6 @@ while [ true ]; do
   sleep 5
 done
 }
-_incrementer 2	
 
 # Read from file
 function _read_file(){
@@ -103,30 +99,29 @@ cat > test.py <<EOF
 import os
 print(os.getcwd())
 EOF
+python3 test.py
 }
 
 
 function _argument_parsing(){
-case "$1" in
-  "development")
-    echo "Dev"
-  ;;
-  "production")
-    echo "Prod"
-  ;;
-
-  *)
-    echo "Usage: $0 [production|development]"
-esac
+  case "$1" in
+    "development")
+      echo "Dev"
+    ;;
+    "production")
+      echo "Prod"
+    ;;
+    *)
+      echo "Usage: $0 [production|development]"
+  esac
 }
 
 
 # subshelling 
 function _subshelling(){
   for n in {1..15};do
-    (echo $n; sleep 3) &
+    echo $n; sleep 3
   done
-  wait
 }
 
 
@@ -138,7 +133,6 @@ function _helpful_vars(){
   __base="$(basename ${__file} .sh)"
   printf "Dir - %s\nFile - %s\nBase - %s"  $__dir $__file $__base
 }
-
-
+_read_file
 # redirection
 
