@@ -8,30 +8,52 @@
 
 ----------
 
-# Tasks
+## Tasks
 
-## Get-Process
-You are tasked to write a simple CLI tool that would help you determine if a processes with a matching name are running on the machine. The CLI tool should take only one argument (**process_name**) and this argument should be positional(no need to specify the argument name when calling the CLI). If there's no match the script should error out with a message "_No processes matching your criteria have been found_"
+### Task-1
 
-`get-process.py Chrome`
-**Example Output**
+Given the below json, create a python object (choose appropriate data type) to represent it appropriately.
 
-    Process id -> 18601 - Process name -> Google Chrome
-    Process id -> 18606 - Process name -> Google Chrome Helper (GPU)
-    Process id -> 18607 - Process name -> Google Chrome Helper
-    Process id -> 18613 - Process name -> Google Chrome Helper (Renderer)
-    Process id -> 18614 - Process name -> Google Chrome Helper (Renderer)
-    Process id -> 18615 - Process name -> Google Chrome Helper (Renderer)
-    Process id -> 18616 - Process name -> Google Chrome Helper (Renderer)
+```
+{
+"_id": "5f8f0e3cd00931579ab05201",
+"index": 1,
+"guid": "e560f9dd-c3f5-4d35-8554-10fdc701bcb6",
+"isActive": true,
+"balance": "$3,927.05",
+"picture": "http://placehold.it/32x32",
+"age": 20,
+"eyeColor": "blue",
+"name": "Jenny Bailey",
+"gender": "female",
+"company": "ECSTASIA",
+"email": "jennybailey@ecstasia.com",
+"phone": "+1 (836) 436-3687",
+"address": "787 Troy Avenue, Harleigh, Hawaii, 6761",
+"tags": [
+  "labore",
+  "amet",
+  "eiusmod",
+  "do",
+  "ipsum",
+  "ipsum",
+  "ut"
+],
+"friends": [
+  {
+    "id": 1,
+    "name": "Deleon Dillard"
+  },
+  {
+    "id": 2,
+    "name": "Johnson Curtis"
+  }
+],
+}
+```
 
+### Task-2
 
-**Hints**
-- use the [psutil](https://psutil.readthedocs.io/en/latest/) library
-    - The library has a function called __process_iter()__
-    - Your job would be to iterate over it using a loop construct ()
-- using string interpolation such as `f'Process id -> {process.name}'` to format your output string
-    - read more about string formatting and interpolation [here](https://www.programiz.com/python-programming/string-interpolation)
-- if using venv do not commit the venv directory
-- I've already setup a scafold of the script so that argument parsing has been handled for you
-- if you'd like to use the value of the 
-
+Write a python function that will take an array as an argument. For each element
+in the array it should print out the index of the item as well as the item itself.
+If the array is empty print the following statement - "Can not print an empty array" 
