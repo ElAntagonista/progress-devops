@@ -6,7 +6,7 @@
 ---
 - hosts: all
   vars:
-    - devops_password: "devops" # This should be a secret
+    - devops_password: "password123"
   gather_facts: no
   become: true
   tasks:

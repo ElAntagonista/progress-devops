@@ -1,3 +1,6 @@
-node2  ansible_host=172.28.128.15
+localhost ansible_connection=local
+agent
 [webservers]
-node2
+agent
+
+

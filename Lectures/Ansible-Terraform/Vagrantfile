@@ -7,8 +7,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 cluster = {
-  "master" => { :ip => "172.28.128.14", :cpus => 2, :mem => 2048 },
-  "agent" => { :ip => "172.28.128.15", :cpus => 1, :mem => 1024 }
+  "master" => { :ip => "172.28.128.14", :cpus => 1, :mem => 512 },
+  "agent" => { :ip => "172.28.128.15", :cpus => 2, :mem => 2048 }
 }
  
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -23,9 +23,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.hostname = hostname
         vb.name = hostname
         vb.customize ["modifyvm", :id, "--memory", info[:mem], "--cpus", info[:cpus], "--hwvirtex", "on"]
+        if hostname == "master"   
+          cfg.vm.provision 'shell', path: 'provision.sh'
+        #else
+          #cfg.vm.provision 'shell', path: 'remove-ssh.sh'
+        end
       end # end provider
-     # cfg.vm.provision 'shell', path: 'provision.sh'
     end # end config
   end # end cluster
 end
- 

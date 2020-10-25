@@ -6,4 +6,4 @@
   hosts: all
   become: true
   roles:
-    - nginx-setup
+    - redis-setup

@@ -1,8 +1,9 @@
 # A very basic example of using Terraform
 # Here we use the github provider to create 
 # a github repository in a given github organization
+
 provider "github" {
-  organization = var.github_organization
+  owner = var.github_organization
   token        = var.token
 }
 
