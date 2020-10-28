@@ -1,7 +1,7 @@
 - hosts: all
   roles:
     - role: mrlesmithjr.elasticsearch
-      vars:
-        elasticsearch:
-          version_minor_version: 7.9.3
-    - { name: geerlingguy.kibana, become: true}
+      become: true
+      tags: [elasticsearch]  
+
+    - { name: geerlingguy.kibana, become: true, tags: [kibana]}

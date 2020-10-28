@@ -20,15 +20,12 @@ ansible-playbook -i hosts initial.yml -l webservers
 
 ## Use check with ansible-playbook
 
-## Execute playbooks Locally 
+## Execute playbooks Locally
 
 ## Tags usage
 
-## Blocks 
+## Blocks
 
 ## Conditional execution of tasks/roles/blocks
-<b>Notes</b>:
 
-* group vars
-* host vars
 
