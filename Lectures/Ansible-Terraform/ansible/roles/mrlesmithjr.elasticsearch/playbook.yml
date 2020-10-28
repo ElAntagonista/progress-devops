@@ -1,7 +1,0 @@
----
-- name: Example Playbook
-  hosts: all
-  tasks:
-    - name: Include ansible-elasticsearch
-      include_role:
-        name: ansible-elasticsearch
