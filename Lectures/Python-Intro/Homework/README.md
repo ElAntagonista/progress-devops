@@ -57,3 +57,36 @@ Given the below json, create a python object (choose appropriate data type) to r
 Write a python function that will take an array as an argument. For each element
 in the array it should print out the index of the item as well as the item itself.
 If the array is empty print the following statement - "Can not print an empty array" 
+
+
+### Task-3
+Write a simple CLI tool that will implement a small subset of curl capabilities.
+Your CLI should have 2 arguments - HTTP-METHOD and URL.
+Your CLI tool would support only "GET" method (the CLI should make sure a proper value for HTTP_METHOD is supplied)
+The output of the tool should be:
+
+HTTP Status-Line 
+
+HTTP HEADERS
+
+Content Body
+
+Example:
+`curl.py -m GET https://google.com`
+
+Output:
+```
+ HTTP/1.1 200 OK
+
+ Date: Wed, 28 Oct 2020 15:38:14 GMT
+ Expires: -1
+ Cache-Control: private, max-age=0
+ Content-Type: text/html; charset=ISO-8859-1
+ Server: gws
+ X-XSS-Protection: 0
+ X-Frame-Options: SAMEORIGIN
+ Accept-Ranges: none
+ Vary: Accept-Encoding
+ Transfer-Encoding: chunked
+
+ <html>Content<html>

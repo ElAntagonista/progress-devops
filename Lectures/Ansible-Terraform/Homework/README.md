@@ -8,23 +8,14 @@
 6. Use the Vagrant setup 
 7. If you'd like to work locally and not executing the ansible-playbook on a remote machine you could use this command:
     `ansible-playbook -i "localhost," <playbook_name> --connection=local`
+
 Substitute playbook_name with the plabook yaml file for this task
 ----------
 # Tasks
 
 ## Ansible playbook
+Create a role and a subsequent playbook that utilizes that role which will 
+install postgresql10 and has the capability of creating a database when a variable with the database name is present.
 
-Using the script from the python homework you'd need to write an ansible playbook that would execute it on a remote machine.
-There's no need to create a role for this task as it's fairly simple.
-The script should do the following:
-1. Verify that python3 and pip3 are installed
-2. Install psutil python package on the system
-3. Run the script with a variable for process name set in the playbook
-4. If there are no errors display the output of it
-
-**Hints**
-- use the pip module to install the _psutil_ package
-    - use python3 as an executable
-- use the script module to run the script(read about *register* in Ansible to get the output of the script)
-- use debug module to display the output
-
+The role will be used on Ubuntu 18 but make sure you have the correct checks for the OS distribution.
+ 
