@@ -13,12 +13,14 @@ sudo usermod -aG docker $USER
 su - $USER
 
 # Commands
+
 ## Docker bind
 The process of building a docker image involves describing the image first in a [Dockerfile](https://gist.github.com/50bd623c39a3a3d801bd6227539a1fa5)
 Simples docker build command would be:
 
 `docker build -t <image_name> .`
 In this case `.` is the context you provide for the build, it should containt the Dockerfile.
+
 ## Docker run
 Once you have an image built you can run a container from using the `docker run` command.
 The simplest form would be:
@@ -32,12 +34,16 @@ If you'd like to run a different CMD in attach to container's terminal
 If you'd like to clean any leftovers of the container after it's been killed
 
 `docker run --rm <image_name>`
+
 ## List running containers
 `docker ps`
+ 
 All containers
 `docker ps -a`
+
 ## List images
 `dokcer images`
+
 ## Kill a container
 `docker kill <container_id>`
 
@@ -50,14 +56,20 @@ All containers
 ### Attach readonly 
 `docker run -v volume-name:<path_to_container>:ro <image_name>`
 
+### Commit
+
+
+### Copy
+
+
 # Repository
+
 ## Login
 The default repository is Docker Hub.
 To login you'd need to have an account created at https://hub.docker.com/ 
 The command to login is:
 
 `docker login`
-
 
 ## Create a repo and push
 `docker tag <image_name>:<tag> <username>/<repo>:<tag>`
