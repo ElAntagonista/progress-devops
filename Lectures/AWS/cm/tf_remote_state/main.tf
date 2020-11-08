@@ -5,8 +5,8 @@ provider aws {
 
 module "terraform-backend" {
   source              = "github.com/ElAntagonista/tf-rifiniti-modules/common/terraform-aws-rs/"
-  s3_bucket_name      = "rf-test-prog"
-  dynamodb_table_name = "rf-test-prog"
+  s3_bucket_name      = "progres-infra"
+  dynamodb_table_name = "progres-infra"
 }
 
 output "s3_bucket_domain_name" {

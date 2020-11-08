@@ -10,7 +10,7 @@ stdout, stderr = out.communicate()
 
 str_output = stdout.decode("utf-8")
 json_output = json.loads(str_output)
-print(json_output)
+
 for x in json_output:
     secret_token = os.popen(x['secret_key_command']).read()
     ui_password = os.popen(x['secret_password_command']).read()

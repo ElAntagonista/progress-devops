@@ -6,11 +6,11 @@ terraform {
   required_version = "~> 0.12.20"
 
   backend "s3" {
-    bucket         = "rf-test-prog"
-    key            = "infra/terraform/us-east-1/vpc.state"
+    bucket         = "progres-infra"
+    key            = "terraform/us-east-1/vpc.state"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "rf-test-prog"
+    dynamodb_table = "progres-infra"
   }
 }
 
@@ -20,9 +20,10 @@ data "aws_security_group" "default" {
 }
 
 module "vpc" {
-  source = "git@github.com:terraform-aws-modules/terraform-aws-vpc.git"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "< 2.60.0"
 
-  name = "prog-vpc"
+  name = "progress-vpc"
 
   cidr = "10.0.0.0/16"
 
@@ -38,15 +39,11 @@ module "vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  public_subnet_tags = {
-    Name = "prog-public"
-  }
-
   tags = {
-    Environment = "prog"
+    Environment = "progress-prod"
   }
 
   vpc_tags = {
-    Name = "prog-vpc"
+    Name = "progress-vpc"
   }
 }

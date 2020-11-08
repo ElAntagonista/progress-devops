@@ -6,11 +6,11 @@ terraform {
   required_version = "~> 0.12.20"
 
   backend "s3" {
-    bucket         = "rf-test-prog"
-    key            = "infra/terraform/us-east-1/iam.state"
+    bucket         = "progres-infra"
+    key            = "terraform/us-east-1/iam/users.state"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "rf-test-prog"
+    dynamodb_table = "progres-infra"
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_iam_access_key" "this" {
 }
 
 resource "aws_iam_group" "this" {
-  name = "prog-users"
+  name = "progress-admins"
 }
 
 resource "aws_iam_group_membership" "team" {
@@ -52,7 +52,7 @@ resource "aws_iam_group_membership" "team" {
 
 
 data "template_file" "this" {
-  template = file("policy.json.tpl")
+  template = file("admins.json.tpl")
 
   vars = {
     account_id = var.account_id
@@ -60,7 +60,7 @@ data "template_file" "this" {
 }
 
 resource "aws_iam_group_policy" "this" {
-  name  = "prog-users"
+  name  = "progress-admins"
   group = aws_iam_group.this.id
 
   policy = data.template_file.this.rendered
