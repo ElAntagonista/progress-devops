@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "this" {
-  bucket        = "green-blue-example"
+  bucket        = "green-blue-example-prog"
   force_destroy = true
 }
 
@@ -239,6 +239,74 @@ resource "aws_codebuild_project" "this" {
   }
 }
 
+data "aws_iam_policy_document" "assume_by_codedeploy" {
+  statement {
+    sid     = ""
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["codedeploy.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "codedeploy" {
+  name               = "codedeploy"
+  assume_role_policy = "${data.aws_iam_policy_document.assume_by_codedeploy.json}"
+}
+
+data "aws_iam_policy_document" "codedeploy" {
+  statement {
+    sid    = "AllowLoadBalancingAndECSModifications"
+    effect = "Allow"
+
+    actions = [
+      "ecs:CreateTaskSet",
+      "ecs:DeleteTaskSet",
+      "ecs:DescribeServices",
+      "ecs:UpdateServicePrimaryTaskSet",
+      "elasticloadbalancing:DescribeListeners",
+      "elasticloadbalancing:DescribeRules",
+      "elasticloadbalancing:DescribeTargetGroups",
+      "elasticloadbalancing:ModifyListener",
+      "elasticloadbalancing:ModifyRule",
+      "lambda:InvokeFunction",
+      "cloudwatch:DescribeAlarms",
+      "sns:Publish"
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AllowS3"
+    effect = "Allow"
+
+    actions = ["s3:GetObject","s3:GetObjectVersion" ]
+
+    resources = ["${aws_s3_bucket.this.arn}/*"]
+  }
+
+  statement {
+    sid    = "AllowPassRole"
+    effect = "Allow"
+
+    actions = ["iam:PassRole"]
+
+    resources = [
+      "${aws_iam_role.execution_role.arn}",
+      "${aws_iam_role.task_role.arn}",
+    ]
+  }
+}
+
+resource "aws_iam_role_policy" "codedeploy" {
+  role   = "${aws_iam_role.codedeploy.name}"
+  policy = "${data.aws_iam_policy_document.codedeploy.json}"
+}
+
 resource "aws_codedeploy_app" "this" {
   compute_platform = "ECS"
   name             = "example-deploy"
@@ -248,7 +316,7 @@ resource "aws_codedeploy_deployment_group" "this" {
   app_name               = "${aws_codedeploy_app.this.name}"
   deployment_group_name  = "example-deploy-group"
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
-  service_role_arn       = "arn:aws:iam::706365375873:role/ecsCodeDeploy"
+  service_role_arn       = "${aws_iam_role.codedeploy.arn}"
 
   blue_green_deployment_config {
     deployment_ready_option {

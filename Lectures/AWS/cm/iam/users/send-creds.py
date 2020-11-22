@@ -18,4 +18,5 @@ for x in json_output:
     access_key_id = x['access_key_id']
     mail = f"Username:{username}\nPassword:{ui_password}\nAccess key id:{access_key_id}\nSecret token: {secret_token}"
     # os.system(f"echo '{mail}'| mail {username}")
-    print(mail)
+    print(mail,"\n")
+

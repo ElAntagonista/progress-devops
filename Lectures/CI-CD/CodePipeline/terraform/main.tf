@@ -1,7 +1,6 @@
 variable "github_token" {
   description = "The GitHub Token to be used for the CodePipeline"
   type        = "string"
-  default     = "a691a0d075894930be94d602485778692ebda8be"
 }
 
 variable "region" {
@@ -20,6 +19,6 @@ variable "github-owner" {
 
 provider "aws" {
   region = "${var.region}"
-  #version = "2.7"
+  version = "2.70"
 }
 

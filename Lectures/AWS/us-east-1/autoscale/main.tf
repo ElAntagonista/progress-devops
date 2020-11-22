@@ -18,10 +18,28 @@ terraform {
 locals {
   user_data = <<EOF
 #!/bin/bash
-apt update && apt install nginx && systemctl restart nginx
+apt update -y && apt install -y nginx
 EOF
 }
 
+
+data "terraform_remote_state" "keypair" {
+  backend = "s3"
+  config  = {
+    bucket         = "progres-infra"
+    key            = "terraform/us-east-1/keypair/keypair.state"
+    region         = "us-east-1"
+  }
+}
+
+data "terraform_remote_state" "sgs" {
+  backend = "s3"
+  config  = {
+    bucket         = "progres-infra"
+    key            = "terraform/us-east-1/sgs/sgs.state"
+    region         = "us-east-1"
+  }
+}
 
 data "terraform_remote_state" "vpc"{
   backend = "s3"
@@ -37,6 +55,7 @@ data "aws_security_group" "default" {
   name   = "default"
 }
 
+
 module "progress-asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "~> 3.0"
@@ -46,8 +65,9 @@ module "progress-asg" {
   lc_name = "progress-lc"
   image_id        = var.image_id 
   instance_type   = "t2.micro"
-  key_name = aws_key_pair.this.key_name  
-  security_groups = [data.aws_security_group.default.id]
+  key_name = data.terraform_remote_state.keypair.outputs.key_pair_id 
+
+  security_groups = [data.terraform_remote_state.sgs.outputs.sgs_ids["web"]]
   target_group_arns = module.alb.target_group_arns
         
   user_data_base64 = base64encode(local.user_data)
@@ -69,11 +89,11 @@ module "progress-asg" {
   ]
 
   # Auto scaling group
-  asg_name                  = "example-asg"
+  asg_name                  = "progress-asg"
   vpc_zone_identifier       = data.terraform_remote_state.vpc.outputs.private_subnets
-  health_check_type         = "ECS"
+  health_check_type         = "EC2"
   min_size                  = 2
-  max_size                  = 3
+  max_size                  = 2
   desired_capacity          = 2
   wait_for_capacity_timeout = 0
 
@@ -90,8 +110,6 @@ module "progress-asg" {
     },
   ]
 }
-
-
 
 module "alb" {
   source  = "terraform-aws-modules/alb/aws"
